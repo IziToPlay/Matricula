@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -31,6 +32,7 @@ public class Course {
 	private String amount;
 	
 	@NotEmpty(message="Ingrese profesor")
+	@ManyToOne
 	private Professor professor;
 	
 	@NotEmpty(message="Ingrese ciclo")
@@ -42,8 +44,8 @@ public class Course {
 	
 	private Account user;
 	
-	@ManyToMany(mappedBy = "students")
-	private List<Student> student;
+	/*@ManyToMany(mappedBy = "students")
+	private List<Student> student;*/
 
 	public Long getId() {
 		return id;
@@ -93,13 +95,13 @@ public class Course {
 		this.user = user;
 	}
 
-	public List<Student> getStudent() {
+	/*public List<Student> getStudent() {
 		return student;
 	}
 
 	public void setStudent(List<Student> student) {
 		this.student = student;
-	}
+	}*/
 
 	public String getName() {
 		return name;
