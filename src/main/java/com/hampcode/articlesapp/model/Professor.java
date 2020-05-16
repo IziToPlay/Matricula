@@ -29,9 +29,11 @@ public class Professor {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Column(name = "name")
 	@NotEmpty(message="Ingrese nombre")
 	private String name;
 	
+	@Column(name = "last_name")
 	@NotEmpty(message="Ingrese apellido")
 	private String lastName;
 

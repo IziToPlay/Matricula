@@ -25,7 +25,7 @@ public interface ProfessorService {
 	
     Page<Professor> findAll(Pageable pageable);
 
-    Page<Professor> findByName(String name,Pageable pageable);
+    Page<Professor> findById(Long id,Pageable pageable);
     
-    Page<Professor> findByLastName(String lastName,Pageable pageable);
+    /*Page<Professor> findByLastName(String lastName,Pageable pageable);*/
 }

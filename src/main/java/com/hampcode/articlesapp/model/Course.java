@@ -25,24 +25,39 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	
+	@Column(name = "name")
 	@NotEmpty(message="Ingrese nombre")
 	private String name;
 	
-	@NotEmpty(message="Ingrese cantidad")
+	@Column(name = "amount")
+	@NotEmpty(message="Ingrese cantidad de alumnos")
 	private String amount;
 	
 	@NotEmpty(message="Ingrese profesor")
 	@ManyToOne
 	private Professor professor;
 	
-	@NotEmpty(message="Ingrese ciclo")
-	private String semester;
+	@Column(name = "semester")
+	@NotEmpty(message="Ingrese ciclo del curso")
+	private Integer semester;
 	
-	@Column(name = "date")
-	@NotEmpty(message="Debe ingresar la fecha")
-	private String date;
+	@Column(name = "career")
+	@NotEmpty(message="Ingrese carrera del curso")
+	private String career;
 	
-	private Account user;
+	@Column(name = "day")
+	@NotEmpty(message="Debe ingresar el día")
+	private String day;
+	
+	@Column(name = "start_time")
+	@NotEmpty(message="Debe ingresar la hora de inicio")
+	private String startTime;
+	
+	@Column(name = "end_time")
+	@NotEmpty(message="Debe ingresar la hora de fin")
+	private String endTime;
+	
+	//private Account user;
 	
 	/*@ManyToMany(mappedBy = "students")
 	private List<Student> student;*/
@@ -71,37 +86,13 @@ public class Course {
 		this.professor = professor;
 	}
 
-	public String getSemester() {
+	public Integer getSemester() {
 		return semester;
 	}
 
-	public void setSemester(String semester) {
+	public void setSemester(Integer semester) {
 		this.semester = semester;
 	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public Account getUser() {
-		return user;
-	}
-
-	public void setUser(Account user) {
-		this.user = user;
-	}
-
-	/*public List<Student> getStudent() {
-		return student;
-	}
-
-	public void setStudent(List<Student> student) {
-		this.student = student;
-	}*/
 
 	public String getName() {
 		return name;
@@ -109,5 +100,37 @@ public class Course {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCareer() {
+		return career;
+	}
+
+	public void setCareer(String career) {
+		this.career = career;
+	}
+
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 }

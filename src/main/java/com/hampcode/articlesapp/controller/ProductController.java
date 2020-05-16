@@ -39,7 +39,6 @@ public class ProductController {
 	protected static final String INDEX_VIEW = "index"; // articles with pagination
 	
 	@Autowired
-	
 	private PageInitPaginationProduct pageInitPagination;
 	
 	@Autowired
@@ -59,6 +58,7 @@ public class ProductController {
 		ModelAndView modelAndView = pageInitPagination.initPagination(pageSize, page, PRODUCT_PAGE_VIEW);
 		return modelAndView;
 	}
+	
 	@GetMapping("/new")
 	public String newProduct(Model model) {
 
@@ -70,6 +70,7 @@ public class ProductController {
 		}
 		return PRODUCT_ADD_FORM_VIEW;
 	}
+	
 	@PostMapping("/create")
 	public String createProduct(@Valid Product product, BindingResult result, Model model, RedirectAttributes attr) {
 
@@ -134,8 +135,6 @@ public class ProductController {
 		return modelAndView;
 	}
 	
-	
-	
 	@GetMapping("/search")
 	public ModelAndView searchByName(@RequestParam("name") String gravity,
 							    @RequestParam("pageSize") Optional<Integer> pageSize,
@@ -159,11 +158,7 @@ public class ProductController {
 			modelAndView=this.pageInitPagination.initPagination(pageSize, page, PRODUCT_QUERYS);
 
 		}
-
 		
 		return modelAndView;
 	}
-	
-
-	
 }

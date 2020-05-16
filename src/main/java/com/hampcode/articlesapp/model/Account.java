@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -36,6 +37,9 @@ public class Account implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private List<Role> roles;
+	
+	@ManyToOne
+	private Student student;
 
 	public Long getId() {
 		return id;
@@ -43,20 +47,6 @@ public class Account implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	/*public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}*/
-	
-	
-
-	public String getPassword() {
-		return password;
 	}
 
 	public String getUserName() {
@@ -67,10 +57,14 @@ public class Account implements Serializable {
 		this.userName = userName;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	public Boolean getEnabled() {
 		return enabled;
 	}
@@ -85,6 +79,14 @@ public class Account implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 }

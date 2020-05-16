@@ -7,9 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.hampcode.articlesapp.model.Professor;
 
+@Repository
 public interface ProfessorRepository extends PagingAndSortingRepository<Professor, Long> {
 
 	/**
@@ -24,9 +26,9 @@ public interface ProfessorRepository extends PagingAndSortingRepository<Professo
      * @return          List of articles with the same title and author
      */
     //title+author must be unique
-    @Query("SELECT p FROM Professor p WHERE p.name=:name and p.lastName=:lastName")
-    List<Professor> findByNameAndLastName(@Param("name") String name, @Param("lastName") String lastName);
-
+    /*@Query("SELECT p FROM Professor p WHERE p.id=:id")
+    List<Professor> findById(@Param("id") Long id);*/
+    /*El findById ya se encuentra en el Crud*/
 
 	/**
      * @param pageable
@@ -36,6 +38,6 @@ public interface ProfessorRepository extends PagingAndSortingRepository<Professo
     Page<Professor> findAll(Pageable pageable);
     
     
-    @Query("SELECT p FROM Professor p WHERE p.id like %?1%")
+    @Query("SELECT p FROM Professor p WHERE p.id=?1")
     Page<Professor> finById(Long id,Pageable pageable);
 }

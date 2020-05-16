@@ -19,11 +19,15 @@ public interface StudentService {
 	
 	Student findById(Long id);
 	
-	
 	Student getLatestEntry();
 	
+	List<Student> findByName(String name);
+	
+	Student findStudentByAccount(Long id);
 	
     Page<Student> findAll(Pageable pageable);
+    
+    Page<Student> findById(Long id, Pageable pageable);
 
-    Page<Student> findByUserName(String userName,Pageable pageable);
+    //Page<Student> findByUserName(String userName,Pageable pageable);
 }

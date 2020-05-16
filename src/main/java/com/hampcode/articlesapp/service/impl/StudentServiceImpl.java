@@ -7,14 +7,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.hampcode.articlesapp.exception.ResourceNotFoundException;
-import com.hampcode.articlesapp.model.Product;
-import com.hampcode.articlesapp.model.PurchaseOrder;
 import com.hampcode.articlesapp.model.Student;
 import com.hampcode.articlesapp.repository.StudentRepository;
 import com.hampcode.articlesapp.service.StudentService;
 
+@Service
 public class StudentServiceImpl implements StudentService {
 
 	@Autowired
@@ -36,10 +36,10 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Student updateStudent(Long id, Student studentDetails) {
 		Student student=findById(id);
-		student.setCareer(studentDetails.getCareer());
-		student.setCourses(studentDetails.getCourses());
-		student.setLastName(studentDetails.getName());
 		student.setName(studentDetails.getName());
+		student.setLastName(studentDetails.getLastName());
+		student.setCareer(studentDetails.getCareer());
+		student.setSemester(studentDetails.getSemester());
 		studentRepository.save(student);
 		return student;
 	}
@@ -76,8 +76,23 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
+	public List<Student> findByName(String name) {
+		return studentRepository.findByName(name);
+	}
+
+	@Override
+	public Student findStudentByAccount(Long id) {
+		return studentRepository.findStudentByAccount(id);
+	}
+
+	@Override
+	public Page<Student> findById(Long id, Pageable pageable) {
+		return studentRepository.findById(id, pageable);
+	}
+
+	/*@Override
 	public Page<Student> findByUserName(String userName, Pageable pageable) {
 		return studentRepository.findByUserName(userName, pageable);
-	}
+	}*/
 
 }

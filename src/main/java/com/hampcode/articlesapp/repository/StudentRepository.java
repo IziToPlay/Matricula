@@ -7,9 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+import com.hampcode.articlesapp.model.Account;
 import com.hampcode.articlesapp.model.Student;
 
+@Repository
 public interface StudentRepository extends PagingAndSortingRepository<Student, Long> {
 
 	/**
@@ -23,11 +26,14 @@ public interface StudentRepository extends PagingAndSortingRepository<Student, L
      * @param author    author of an article
      * @return          List of articles with the same title and author
      */
-    //title+author must be unique
-    @Query("SELECT s FROM Student s WHERE s.name=:name and s.user.userName=:code")
-    List<Student> findByNameAndUserName(@Param("name") String name, @Param("code") String code);
+    
+    @Query("SELECT s FROM Student s WHERE s.name=:name")
+    List<Student> findByName(@Param("name") String name);
 
-
+    @Query("SELECT s FROM Student s WHERE s.account.id=:id")
+    Student findStudentByAccount(@Param("id") Long id);
+    //FindById ya esta implementado en el Crud de List
+    
 	/**
      * @param pageable
      * @return          a page of entities that fulfill the restrictions
@@ -35,7 +41,6 @@ public interface StudentRepository extends PagingAndSortingRepository<Student, L
      */
     Page<Student> findAll(Pageable pageable);
     
-    
-    @Query("SELECT s FROM Student s WHERE s.user.userName like %?1%")
-    Page<Student> findByUserName(String userName,Pageable pageable);
+    @Query("SELECT s FROM Student s WHERE s.id =?1")
+    Page<Student> findById(Long id,Pageable pageable);
 }
