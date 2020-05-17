@@ -31,7 +31,7 @@ public class Course {
 	
 	@Column(name = "amount")
 	@NotEmpty(message="Ingrese cantidad de alumnos")
-	private String amount;
+	private Integer amount;
 	
 	@NotEmpty(message="Ingrese profesor")
 	@ManyToOne
@@ -70,11 +70,11 @@ public class Course {
 		this.id = id;
 	}
 
-	public String getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
 

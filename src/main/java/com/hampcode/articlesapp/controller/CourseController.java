@@ -106,7 +106,7 @@ public class CourseController {
 	}
 	
 	//FOR STUDENT
-	@GetMapping
+	@GetMapping("/coursesAvailables")
 	public ModelAndView getAllCoursesAvailables(@RequestParam("pageSize") Optional<Integer> pageSize,
 				@RequestParam("page") Optional<Integer> page) {
 		ModelAndView modelAndView = pageInitPaginationCourse.initPaginationStudent(pageSize, page, COURSE_PAGE_VIEW_STUDENT);

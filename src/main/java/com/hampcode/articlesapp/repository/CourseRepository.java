@@ -35,7 +35,7 @@ public interface CourseRepository extends PagingAndSortingRepository<Course, Lon
 
     //Query para el Alumno para ver sus cursos a matricularse
     @Query("SELECT c FROM Course c inner join Student s on c.career=s.career WHERE student.career="
-    		+ "c.career AND student.semester=c.semester")
+    		+ "c.career AND student.semester=c.semester AND c.amount>0")
     List<Course> findCoursesAvailables(@Param("student") Student student);
         
     //FindById está incorporado en el Crud de List

@@ -23,6 +23,7 @@ import com.hampcode.articlesapp.common.PageInitPaginationStudent_Course;
 import com.hampcode.articlesapp.model.Course;
 import com.hampcode.articlesapp.model.Student;
 import com.hampcode.articlesapp.model.Student_Course;
+import com.hampcode.articlesapp.service.CourseService;
 import com.hampcode.articlesapp.service.EnrollmentService;
 import com.hampcode.articlesapp.service.StudentService;
 import com.hampcode.articlesapp.service.Student_CourseService;
@@ -56,17 +57,19 @@ public class Student_CourseController {
 	@Autowired
 	private AccountServiceImpl accountServiceImpl;
 	
+	@Autowired
+	private CourseService courseService;
+	
 	private Integer actualSemester=201802;
 	private Integer searchedSemester;
 	
 	@GetMapping
 	public ModelAndView getStudentCoursesBySemester(@RequestParam("pageSize") Optional<Integer> pageSize,
-			@RequestParam("page") Optional<Integer> page,@RequestParam("semester") Integer semester) {
-		searchedSemester=semester;
-		ModelAndView modelAndView = pageInitPaginationStudentCourse.initPaginationSearchBySemester(pageSize, page, STUDENT_COURSE_PAGE_VIEW,semester);
+			@RequestParam("page") Optional<Integer> page) {
+		ModelAndView modelAndView = pageInitPaginationStudentCourse.initPaginationSearchBySemester(pageSize, page, STUDENT_COURSE_PAGE_VIEW,searchedSemester);
 		return modelAndView;
 	}
-	
+		
 	@GetMapping("/querysStudents")
 	public ModelAndView listAllStudent(@RequestParam("pageSize") Optional<Integer> pageSize,
 			@RequestParam("page") Optional<Integer> page,@RequestParam("semester") Integer semester) {
@@ -75,6 +78,7 @@ public class Student_CourseController {
 		return modelAndView;
 	}
 	
+	//Matricular alumno y restar uno a la cantidad de vacantes disponibles para el curso
 	@PostMapping("/create")
 	public String createStudentCourse(@Valid Course course, BindingResult result, Model model, RedirectAttributes attr) {
 
@@ -86,6 +90,7 @@ public class Student_CourseController {
 		studentCourse.setCourse(course);
 		studentCourse.setStudent(studentService.findStudentByAccount(accountServiceImpl.getLoggedUser().getId()));
 		studentCourse.setEnrollment(enrollmentService.FindBySemester(actualSemester));
+		course.setAmount(course.getAmount()-1);
 		studentCourseService.createStudentCourse(studentCourse);
 		//Student_Course newStudentCourse = studentCourseService.createStudentCourse(studentCourse);
 		//model.addAttribute("student", newStudent);
@@ -96,13 +101,16 @@ public class Student_CourseController {
 	
 	@GetMapping("/semesterSearched")
 	public ModelAndView getStudentCoursesBySemester(@RequestParam("pageSize") Optional<Integer> pageSize,
-			@RequestParam("page") Optional<Integer> page) {
-		ModelAndView modelAndView = pageInitPaginationStudentCourse.initPaginationSearchBySemester(pageSize, page, STUDENT_COURSE_PAGE_VIEW,searchedSemester);
+			@RequestParam("page") Optional<Integer> page,@RequestParam("semester") Integer semester) {
+		ModelAndView modelAndView = pageInitPaginationStudentCourse.initPaginationSearchBySemester(pageSize, page, STUDENT_COURSE_PAGE_VIEW,semester);
 		return modelAndView;
 	}
 	
+	//Desmatricular alumno y sumar uno a la cantidad de vacantes para curso
 	@GetMapping(value = "/{id}/delete")
 	public String deleteStudentCourse(@PathVariable("id") Long courseToDeleteId) {
+		Course course=courseService.findById(courseToDeleteId);
+		course.setAmount(course.getAmount()+1);
 		studentCourseService.deleteStudentCourse(courseToDeleteId);
 		return "redirect:/studentCourses/semesterSearched";
 	}
