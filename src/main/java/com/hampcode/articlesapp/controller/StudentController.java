@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.hampcode.articlesapp.common.PageInitPagination;
 import com.hampcode.articlesapp.common.PageInitPaginationStudent;
 import com.hampcode.articlesapp.model.Product;
 import com.hampcode.articlesapp.model.Professor;

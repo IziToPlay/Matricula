@@ -24,9 +24,11 @@ public interface Student_CourseService {
 	
 	Student_Course getLatestEntry();
 	
-	List<Student_Course> findCoursesBySemester(Integer semester);
+	/*List<Student_Course> findCoursesBySemester(Integer semester);
 	
-	List<Course> ValidateCoursesStudentRegistered(Course course);
+	List<Course> ValidateCoursesStudentRegistered(Course course);*/
+	
+	Page<Course> ValidateCoursesStudentRegistered(Course course);
 	
 	Page<Student_Course> findCoursesBySemester(Integer semester, Pageable pageable);
 	

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hampcode.articlesapp.common.PageInitPagination;
+import com.hampcode.articlesapp.common.PageInitPaginationCourse;
 import com.hampcode.articlesapp.common.PagerModel;
 import com.hampcode.articlesapp.model.Article;
-import com.hampcode.articlesapp.service.ArticleService;
+import com.hampcode.articlesapp.service.CourseService;
 
 @Controller
 @RequestMapping({ "/", "/home" })
@@ -25,28 +25,36 @@ import com.hampcode.articlesapp.service.ArticleService;
 public class HomeController {
 
 	@Autowired
-	private ArticleService articleService;
+	private CourseService courseService;
 
 	@Autowired
-	private PageInitPagination pageInitPagination;
+	private PageInitPaginationCourse pageInitPaginationCourse;
 
 	protected static final String INDEX_VIEW = "index"; // articles with pagination
 
-	protected static final String ARTICLE_VIEW = "articles/showArticle"; // view template for single article
+	protected static final String ARTICLE_VIEW = "courses/showCourse"; // view template for single article
 
-	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping
 	public ModelAndView getIndex(@RequestParam("pageSize") Optional<Integer> pageSize,
 			@RequestParam("page") Optional<Integer> page) {
-		ModelAndView modelAndView = pageInitPagination.initPagination(pageSize, page, INDEX_VIEW);
+		ModelAndView modelAndView = pageInitPaginationCourse.initPagination(pageSize, page, INDEX_VIEW);
 		return modelAndView;
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/{id}")
-	public String getArticleById(@PathVariable(value = "id") Long articleId, Model model) {
-		model.addAttribute("article", articleService.findById(articleId));
+	public String getCourseById(@PathVariable(value = "id") Long courseId, Model model) {
+		model.addAttribute("course", courseService.findById(courseId));
 		return ARTICLE_VIEW;
+	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping
+	public ModelAndView getCoursesAvailables(@RequestParam("pageSize") Optional<Integer> pageSize,
+			@RequestParam("page") Optional<Integer> page) {
+		ModelAndView modelAndView = pageInitPaginationCourse.initPaginationStudent(pageSize, page, INDEX_VIEW);
+		return modelAndView;
 	}
 	
 	

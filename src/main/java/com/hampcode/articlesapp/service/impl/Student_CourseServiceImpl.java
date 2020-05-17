@@ -57,7 +57,7 @@ public class Student_CourseServiceImpl implements Student_CourseService {
 		return null;
 	}
 
-	//Listar cursos según semestre ingresado
+	/*//Listar cursos según semestre ingresado
 	@Override
 	public List<Student_Course> findCoursesBySemester(Integer semester) {
 		Account account=accountServiceImpl.getLoggedUser();
@@ -69,7 +69,7 @@ public class Student_CourseServiceImpl implements Student_CourseService {
 	public List<Course> ValidateCoursesStudentRegistered(Course course) {
 		Account account=accountServiceImpl.getLoggedUser();
 		return studentCourseRepository.CourseStudentRegistered(course, studentServiceImpl.findStudentByAccount(account.getId()));
-	}
+	}*/
 
 	//Eliminar curso que el alumno ya está matriculado
 	@Override
@@ -89,5 +89,11 @@ public class Student_CourseServiceImpl implements Student_CourseService {
 	public Page<Course> CourseStudentRegistered(Course course, Pageable pageable) {
 		Account account=accountServiceImpl.getLoggedUser();
 		return studentCourseRepository.CourseStudentRegistered(course, studentServiceImpl.findStudentByAccount(account.getId()), pageable);
+	}
+	
+	@Override
+	public Page<Course> ValidateCoursesStudentRegistered(Course course) {
+		Account account=accountServiceImpl.getLoggedUser();
+		return studentCourseRepository.CourseStudentRegistered(course, studentServiceImpl.findStudentByAccount(account.getId()));
 	}
 }
