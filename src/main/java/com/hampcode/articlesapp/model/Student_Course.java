@@ -19,6 +19,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "student_courses")
 public class Student_Course {
+	
+	@Id
+	@Column(name = "student_course_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long id;
 
 	@ManyToOne
 	private Enrollment enrollment;
@@ -51,5 +56,13 @@ public class Student_Course {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
